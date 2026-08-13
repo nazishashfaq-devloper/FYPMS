@@ -1,0 +1,241 @@
+/* =========================================================
+   VUFYPMS — Shared Site Theme
+   Single source of truth for colors/icons across every page
+   (public site, auth pages, and all 3 dashboards)
+   ========================================================= */
+
+:root {
+    /* Brand */
+    --vu-primary:        #4f46e5;   /* indigo-600 */
+    --vu-primary-dark:   #3730a3;   /* indigo-800 */
+    --vu-primary-light:  #818cf8;   /* indigo-400 */
+
+    /* Status / accent */
+    --vu-success:  #10b981;  /* emerald-500 */
+    --vu-warning:  #f59e0b;  /* amber-500   */
+    --vu-danger:   #ef4444;  /* red-500     */
+    --vu-info:     #0ea5e9;  /* sky-500     */
+    --vu-violet:   #8b5cf6;  /* violet-500  */
+
+    /* Neutrals */
+    --vu-sidebar-bg:      #1e1b4b; /* indigo-950 */
+    --vu-sidebar-bg-2:    #312e81; /* indigo-900 */
+    --vu-sidebar-text:    #c7d2fe; /* indigo-200 */
+    --vu-sidebar-text-mute:#9694c4;
+    --vu-bg:              #f5f6fb;
+    --vu-card-border:     #ebedf5;
+    --vu-text-dark:       #1f2333;
+    --vu-text-mute:       #6b7280;
+}
+
+body {
+    background: var(--vu-bg);
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    color: var(--vu-text-dark);
+}
+
+/* ---------- Brand buttons / links (overrides Bootstrap primary) ---------- */
+.btn-primary {
+    background: var(--vu-primary);
+    border-color: var(--vu-primary);
+}
+.btn-primary:hover,
+.btn-primary:focus {
+    background: var(--vu-primary-dark);
+    border-color: var(--vu-primary-dark);
+}
+.btn-outline-primary {
+    color: var(--vu-primary);
+    border-color: var(--vu-primary);
+}
+.btn-outline-primary:hover {
+    background: var(--vu-primary);
+    border-color: var(--vu-primary);
+}
+a { color: var(--vu-primary); }
+a:hover { color: var(--vu-primary-dark); }
+.text-primary { color: var(--vu-primary) !important; }
+
+/* ---------- Top navbar (public + legacy app layout) ---------- */
+.navbar-brand-bg,
+nav.navbar[style] {
+    background: linear-gradient(135deg, var(--vu-sidebar-bg), var(--vu-sidebar-bg-2)) !important;
+}
+
+/* ---------- App shell: sidebar + main scroll independently on md+ ---------- */
+html, body { height: 100%; }
+.vufypms-shell { min-height: 100vh; }
+
+/* ---------- Dashboard Sidebar ---------- */
+.vufypms-sidebar {
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--vu-sidebar-bg), var(--vu-sidebar-bg-2));
+    color: var(--vu-sidebar-text);
+    width: clamp(15rem, 20vw, 18rem);
+    flex-shrink: 0;
+    overflow-y: auto;
+
+    /* Hide scrollbar (Firefox) while keeping the sidebar scrollable */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+/* Hide scrollbar (Chrome, Edge, Safari) */
+.vufypms-sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    /* On md+ the sidebar is part of the normal layout (not an off-canvas
+       drawer). Pin it to the viewport and let it scroll on its own, so
+       long pages don't push navigation out of reach. */
+    .vufypms-sidebar {
+        position: sticky;
+        top: 0;
+        align-self: flex-start;
+        height: 100vh;
+    }
+}
+.vufypms-sidebar .brand {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 1.15rem 1.1rem;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    display: flex;
+    align-items: center;
+}
+.vufypms-sidebar .brand i { color: var(--vu-primary-light); }
+.vufypms-sidebar a.nav-link {
+    color: var(--vu-sidebar-text);
+    padding: .55rem 1rem;
+    border-radius: .5rem;
+    font-size: .92rem;
+    margin-bottom: 2px;
+    transition: background .15s ease, color .15s ease;
+}
+.vufypms-sidebar a.nav-link i { width: 1.2rem; display: inline-block; text-align: center; }
+.vufypms-sidebar a.nav-link:hover {
+    background: rgba(255,255,255,.08);
+    color: #fff;
+}
+.vufypms-sidebar a.nav-link.active {
+    background: var(--vu-primary);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(79,70,229,.45);
+}
+.vufypms-sidebar .nav-heading {
+    text-transform: uppercase;
+    font-size: .68rem;
+    letter-spacing: .06em;
+    color: var(--vu-sidebar-text-mute);
+    padding: .9rem 1rem .25rem;
+    font-weight: 600;
+}
+.vufypms-sidebar a.nav-link.text-danger { color: #fca5a5 !important; }
+.vufypms-sidebar a.nav-link.text-danger:hover { background: rgba(239,68,68,.15); color: #fff !important; }
+
+/* ---------- Topbar ---------- */
+.vufypms-topbar {
+    background: #fff;
+    border-bottom: 1px solid var(--vu-card-border);
+    box-shadow: 0 1px 2px rgba(16,24,40,.03);
+}
+.badge-role { text-transform: uppercase; font-size: .65rem; letter-spacing: .04em; }
+.badge-role.role-admin      { background: var(--vu-violet) !important; }
+.badge-role.role-supervisor { background: var(--vu-info) !important; }
+.badge-role.role-student    { background: var(--vu-success) !important; }
+
+/* ---------- Stat Cards (dashboards) ---------- */
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    background: #fff;
+    border: 1px solid var(--vu-card-border);
+    border-radius: .85rem;
+    padding: 1rem 1.1rem;
+    height: 100%;
+    box-shadow: 0 1px 3px rgba(16,24,40,.04);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+.stat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(16,24,40,.08); }
+.stat-icon {
+    flex-shrink: 0;
+    width: 2.875rem;
+    height: 2.875rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #fff;
+}
+.stat-icon-primary { background: linear-gradient(135deg, var(--vu-primary), var(--vu-primary-light)); }
+.stat-icon-success { background: linear-gradient(135deg, #059669, var(--vu-success)); }
+.stat-icon-warning { background: linear-gradient(135deg, #d97706, var(--vu-warning)); }
+.stat-icon-danger  { background: linear-gradient(135deg, #b91c1c, var(--vu-danger)); }
+.stat-icon-info    { background: linear-gradient(135deg, #0369a1, var(--vu-info)); }
+.stat-icon-violet  { background: linear-gradient(135deg, #6d28d9, var(--vu-violet)); }
+.stat-label { font-size: .76rem; color: var(--vu-text-mute); font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
+.stat-value { font-size: 1.6rem; font-weight: 700; color: var(--vu-text-dark); line-height: 1.1; }
+
+.profile-avatar { width: 4.5rem; height: 4.5rem; border-radius: 50%; font-size: 1.8rem; }
+
+/* ---------- Section card headers ---------- */
+.card-header.bg-white { background: #fff !important; border-bottom: 1px solid var(--vu-card-border); }
+.card { border: 1px solid var(--vu-card-border); }
+.card-header i { color: var(--vu-primary); margin-right: .4rem; }
+
+/* ---------- Misc ---------- */
+.text-info { color: var(--vu-info) !important; }
+.bg-info { background-color: var(--vu-info) !important; }
+
+.vufypms-main { flex: 1 1 0%; min-width: 0; }
+
+/* ---------- Global overflow guards ---------- */
+img, svg, video, canvas { max-width: 100%; height: auto; }
+.card, .table-responsive { max-width: 100%; }
+
+/* A small, flexible input used inline in tables/forms (e.g. supervisor
+   reject-reason box) — grows/shrinks with available space instead of a
+   fixed pixel width, so it never forces a row to overflow on narrow
+   screens. */
+.reject-reason { flex: 1 1 9rem; min-width: 6rem; }
+
+/* Reusable scrollable panel heights (rem-based) for dashboard "recent
+   activity" lists, replacing one-off inline `max-height:###px` styles. */
+.scroll-panel-sm { max-height: 16.25rem; overflow-y: auto; }
+.scroll-panel-md { max-height: 20rem; overflow-y: auto; }
+.scroll-panel-lg { max-height: 26.25rem; overflow-y: auto; }
+
+/* ---------- Off-canvas sidebar on small screens ---------- */
+@media (max-width: 767.98px) {
+    .vufypms-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1045;
+        width: min(80vw, 18rem);
+        min-height: 100vh;
+        transform: translateX(-100%);
+        transition: transform .25s ease;
+        box-shadow: 4px 0 18px rgba(0,0,0,.25);
+    }
+    .vufypms-sidebar.open { transform: translateX(0); }
+
+    .sidebar-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15,17,40,.45);
+        z-index: 1040;
+    }
+    .sidebar-backdrop.show { display: block; }
+
+    .vufypms-main { width: 100%; }
+}
+
+.mobile-menu-btn { display: none; }
+@media (max-width: 767.98px) {
+    .mobile-menu-btn { display: inline-flex; }
+}
